@@ -42,32 +42,56 @@ function expo(options, modified, total, next) {
           $dom.find('html').attr('alpaca', 1);
         }
       });
-      fis.util.write(fis.util(viewRoot, pageName, `${pageName}.tpl.js`), tplFun.funSerializationStr);
+      fis.util.write(fis.util(viewRoot, pageName, pageName + '.tpl.js'), tplFun.funSerializationStr);
       /* 处理 html 文件 */
 
       /* 生成 router 文件 */
-      var routerStr = `var handler = require('../controllers/${pageName}.js');
-module.exports = {
-    method: 'GET',
-    path: '/m.ke.qq.com/${pageName}.html',
-    handler: handler,
-    config: {
-        state: {
-            failAction: 'log'
-        }
-    }
-};`;
-      fis.util.write(fis.util(serverRoot, 'routes', `${pageName}.js`), routerStr);
+      var routerStr = [
+        "var handler = require('../controllers/", pageName, ".js');",
+        "module.exports = {",
+          "method: 'GET',",
+          "path: '/m.ke.qq.com/" + pageName + ".html',",
+          "handler: handler,",
+          "config: {",
+            "state: {",
+              "failAction: 'log'",
+            "}",
+          "}",
+        "};"
+      ].join('');
+
+//       var routerStr = `var handler = require('../controllers/${pageName}.js');
+// module.exports = {
+//     method: 'GET',
+//     path: '/m.ke.qq.com/${pageName}.html',
+//     handler: handler,
+//     config: {
+//         state: {
+//             failAction: 'log'
+//         }
+//     }
+// };`;
+
+      fis.util.write(fis.util(serverRoot, 'routes', pageName + '.js'), routerStr);
       /* 生成 router 文件 */
 
       /* 生成 controller 文件 */
-      var controllerStr = `const Page = require('../lib/Page');
-const opt = require('../pages/${pageName}/${pageName}');
+      var controllerStr = [
+        "const Page = require('../lib/Page');",
+        "const opt = require('../pages/" + pageName + "/" + pageName + "');",
+        "module.exports = (request, reply) => {",
+          "return new Page(request, reply, '" + pageName + "', opt);",
+        "};"
+      ];
 
-module.exports = (request, reply) => {
-  return new Page(request, reply, '${pageName}', opt);
-};`;
-      fis.util.write(fis.util(serverRoot, 'controllers', `${pageName}.js`), controllerStr);
+//       var controllerStr = `const Page = require('../lib/Page');
+// const opt = require('../pages/${pageName}/${pageName}');
+
+// module.exports = (request, reply) => {
+//   return new Page(request, reply, '${pageName}', opt);
+// };`;
+
+      fis.util.write(fis.util(serverRoot, 'controllers', pageName + '.js'), controllerStr);
       /* 生成 controller 文件 */
     }
   });
