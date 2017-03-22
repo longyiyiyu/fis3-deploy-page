@@ -1,0 +1,27 @@
+{
+  "name": "fis3-deploy-page",
+  "version": "1.0.0",
+  "description": "a fis3 deploy plugin for page framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/longyiyiyu/fis3-deploy-page.git"
+  },
+  "keywords": [
+    "page",
+    "fis",
+    "plugin"
+  ],
+  "author": "long",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/longyiyiyu/fis3-deploy-page/issues"
+  },
+  "homepage": "https://github.com/longyiyiyu/fis3-deploy-page#readme",
+  "dependencies": {
+    "d-tpl": "^0.1.0"
+  }
+}
