@@ -82,7 +82,7 @@ function expo(options, modified, total, next) {
         "module.exports = (request, reply) => {",
           "return new Page(request, reply, '" + pageName + "', opt);",
         "};"
-      ];
+      ].join('');
 
 //       var controllerStr = `const Page = require('../lib/Page');
 // const opt = require('../pages/${pageName}/${pageName}');
